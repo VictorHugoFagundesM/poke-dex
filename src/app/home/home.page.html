@@ -1,17 +1,31 @@
-<ion-content [fullscreen]="true">
+<ion-content>
+
+  <app-page-header></app-page-header>
 
   <div class="page page-home">
 
-    <div class="pokemon-card-list">
+    <div class="page-body">
 
-      <div class="pokemon-card" *ngFor="let item of pokemonList.pokemonData">
+      <div class="pokemon-card-list">
 
-        <img class="pokemon-photo" src="{{item.photo}}">
+        <div class="pokemon-card" *ngFor="let item of pokemonList.pokemonData" (click)="navigateurl(item)">
 
-        <div class="pokemon-description">
-          <span>{{item.name}}</span>
-          <p># {{item.id}}</p>
-          <!-- <p>{{item}}</p> -->
+          <div class="pokemon-description d-flex">
+            <span class="mr-auto weight-5">{{ item.name[0].toUpperCase() + item.name.slice(1)}}</span>
+            <small># {{item.order}}</small>
+            <!-- <p>{{item}}</p> -->
+          </div>
+
+          <img class="pokemon-photo" src="{{item.photo}}">
+
+          <div class="pokemon-types">
+
+            <div class="type-card" *ngFor="let type of item.types" [style.background-color]="pokemonType?.[type]">
+              {{type.toUpperCase()}}
+            </div>
+
+          </div>
+
         </div>
 
       </div>
@@ -20,5 +34,8 @@
 
   </div>
 
+  <ion-infinite-scroll *ngIf="pokemonList.hasMorePages" (ionInfinite)="getNextPage()">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>

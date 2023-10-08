@@ -1,3 +1,4 @@
+import { ComponentModule } from './../components/component.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -13,7 +14,8 @@ import { InfoPage } from './info.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    InfoPageRoutingModule
+    InfoPageRoutingModule,
+    ComponentModule
   ],
   declarations: [InfoPage]
 })

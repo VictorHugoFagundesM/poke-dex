@@ -1,0 +1,75 @@
+* {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+ion-content {
+
+  .page {
+
+    .page-body {
+      padding: 20px;
+      max-width: 1440px;
+      margin-inline: auto;
+
+      .pokemon-types {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+
+        .type-card {
+          padding: 2px 10px;
+          border-radius: 3px;
+          font-size: 12px;
+          color: white;
+          text-shadow: 0px 0px 2px #000000b8;
+        }
+
+      }
+
+    }
+
+  }
+
+  .ml-auto {
+    margin-left: auto;
+  }
+
+  .mr-auto {
+    margin-right: auto;
+  }
+
+  .d-flex {
+    display: flex;
+  }
+
+  .weight-5 {
+    font-weight: 500;
+  }
+
+  small {
+    opacity: 0.6;
+    display: flex;
+    align-items: center;
+  }
+
+}
+
+.loading-wrapper {
+  background-color: transparent !important;
+  box-shadow: none !important;
+
+  .loading-spinner {
+    background-image: url('./../assets/icon/loading.gif');
+    width: 120px;
+    height: 90px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border-radius: 5px;
+
+    ion-spinner {
+      display: none !important;
+    }
+
+  }
+
+}
