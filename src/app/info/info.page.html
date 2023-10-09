@@ -9,7 +9,7 @@
       <h1 class="body-header">
         <img (click)="location.back()" src="./../../assets/icon/arrow-back.svg">
         {{ pokemonData.name[0].toUpperCase() + pokemonData.name.slice(1)}}
-        <img class="favorite-pokemon" src="./../../assets/icon/{{isFavorite ? 'filled-heart' : 'empty-heart'}}.svg" (click)="addFavoritePokemon()">
+        <img class="favorite-pokemon" src="./../../assets/icon/{{isFavorite ? 'filled-pokeball' : 'empty-pokeball'}}.svg" (click)="addRemoveFavoritePokemon()">
       </h1>
 
       <div class="pokemon-description">
@@ -17,7 +17,7 @@
         <img src="{{pokemonData.photo}}">
 
         <div class="pokedex-data">
-          <h3>Pokédex data</h3>
+          <h3>Dados do Pokemon</h3>
 
           <table>
 
@@ -38,7 +38,7 @@
               </tr>
 
               <tr>
-                <th>Type</th>
+                <th>Tipo</th>
 
                 <td class="pokemon-types">
 
@@ -100,8 +100,8 @@
               <th>Status</th>
               <td>Valor</td>
               <td></td>
-              <td>Mínimo</td>
-              <td>Máximo</td>
+              <td>Mín.</td>
+              <td>Máx.</td>
 
             </tr>
 
@@ -124,6 +124,18 @@
         </table>
 
       </div>
+
+    </div>
+
+    <div class="page-body not-found" *ngIf="!pokemonData">
+
+      <h1 class="body-header">
+        <img (click)="location.back()" src="./../../assets/icon/arrow-back.svg">
+      </h1>
+
+      <img src="./../../assets/not-found.png">
+      <h3>Pokemon não encontrado</h3>
+      <span>Não foi possível encontrar o pokemon, tente novamente mais tarde!</span>
 
     </div>
 

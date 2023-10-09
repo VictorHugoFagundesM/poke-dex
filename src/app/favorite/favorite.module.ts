@@ -1,3 +1,4 @@
+import { ComponentModule } from './../components/component.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -13,7 +14,8 @@ import { FavoritePage } from './favorite.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    FavoritePageRoutingModule
+    FavoritePageRoutingModule,
+    ComponentModule
   ],
   declarations: [FavoritePage]
 })

@@ -1,13 +1,47 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>favorite</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">favorite</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <app-page-header></app-page-header>
+
+  <div class="page page-favorite">
+
+    <div class="page-body" *ngIf="this.favoriteList.length  != 0">
+
+      <h1 class="body-header">
+        <img (click)="location.back()" src="./../../assets/icon/arrow-back.svg">
+        Minha PokeDex
+      </h1>
+
+      <div class="pokemon-card-list">
+
+        <div class="pokemon-card" *ngFor="let item of this.favoriteList" (click)="router.navigate(['info', {id: item.id}]);">
+
+          <div class="pokemon-description d-flex">
+            <span class="mr-auto weight-5">{{ item.name[0].toUpperCase() + item.name.slice(1)}}</span>
+            <img class="favorite-pokemon" src="./../../assets/icon/filled-pokeball.svg" (click)="removeFavoritePokemon(item.id)">
+            <!-- <p>{{item}}</p> -->
+          </div>
+
+          <img class="pokemon-photo" src="{{item.photo}}">
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="page-body not-found" *ngIf="this.favoriteList.length  == 0">
+
+      <h1 class="body-header">
+        <img (click)="location.back()" src="./../../assets/icon/arrow-back.svg">
+        Minha PokeDex
+      </h1>
+
+      <img src="./../../assets/empty-list.png">
+      <h3>A PokeDex está vazia</h3>
+      <span>Adicione novos pokemons para completá-la!</span>
+
+    </div>
+
+  </div>
+
 </ion-content>

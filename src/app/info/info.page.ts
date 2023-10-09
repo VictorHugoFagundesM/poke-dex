@@ -77,6 +77,8 @@ export class InfoPage implements OnInit {
       this.storage.get("favorites").then((data:any) => {
         if (data) {
           this.favoriteList = data;
+          // Verifica se o pokemon já foi favoritado
+          this.isFavorite = this.favoriteList.map((data:any) => parseInt(data.id)).includes(parseInt(this.pokemonId));
         }
       });
 
@@ -87,15 +89,16 @@ export class InfoPage implements OnInit {
   /**
    * Adiciona o pokemon à lista de favoritos
    */
-  addFavoritePokemon() {
+  addRemoveFavoritePokemon() {
 
     // Remove a informação de favoritos no storage
     if (this.isFavorite) {
-      this.favoriteList.pop();
+      let pokemonIndex = this.favoriteList.map((data:any) => parseInt(data.id)).indexOf(parseInt(this.pokemonId));
+      this.favoriteList.splice(pokemonIndex, 1)
 
     // Guarda a informação de favoritos no storage
     } else {
-      this.favoriteList.push(this.pokemonId);
+      this.favoriteList.push(this.pokemonData);
     }
 
     this.storage.set("favorites", this.favoriteList);

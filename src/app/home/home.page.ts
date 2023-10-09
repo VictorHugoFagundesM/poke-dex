@@ -73,6 +73,10 @@ export class HomePage implements OnInit {
 
   }
 
+  /**
+   * Navega à página de informações do pokemon
+   * @param data
+   */
   navigateurl(data:any) {
     this.router.navigate(["info", {id: data.id}]);
   }

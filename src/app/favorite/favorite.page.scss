@@ -1,0 +1,27 @@
+.page-favorite {
+
+  .pokemon-card-list {
+    margin-top: 50px;
+    // grid-template-columns: repeat(auto-fit, minmax(190px, 250px)) !important;
+
+    .pokemon-card {
+
+      .pokemon-description {
+
+        span {
+          display: flex;
+          align-items: center;
+        }
+
+        img {
+          max-height: 30px !important;
+          margin-inline: unset !important;
+          margin: auto;
+        }
+      }
+
+    }
+
+  }
+
+}
