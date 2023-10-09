@@ -116,4 +116,26 @@ export class PokeApiService {
 
   }
 
+  /**
+   * Pesquisa pelo pokemon
+   * @param searchText
+   */
+  searchPokemon(searchText:string) {
+
+    return new Promise((resolve, reject) => {
+
+      let url = this.apiUrl + `pokemon/` + searchText;
+
+      // Obtém a lista de pokemon da página
+      this.http.get(url).subscribe((response: any) => {
+        debugger
+
+      }, (error) => {
+        reject(error); // Rejeita a Promise em caso de erro
+      });
+
+    });
+
+  }
+
 }

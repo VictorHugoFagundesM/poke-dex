@@ -1,8 +1,13 @@
 * {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: rgba(48, 47, 47, 0.959);
 }
 
 ion-content {
+
+  &::part(background) {
+    background-color: white;
+  }
 
   .page {
     // Tamanho total menos a altura do header

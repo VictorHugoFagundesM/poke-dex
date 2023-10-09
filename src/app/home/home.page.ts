@@ -1,6 +1,6 @@
 import { StorageService } from './../services/storage/storage.service';
 import { PokeApiService } from '../services/api/poke-api.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { PokemonType } from 'src/enums/pokemon-type.enum';
 import { Router } from '@angular/router';
@@ -16,6 +16,8 @@ export class HomePage implements OnInit {
   public isLoading:boolean = false;
   public pokemonType:any = PokemonType;
 
+
+	@ViewChild("searchInput") searchInput: ElementRef;
 
   constructor(
     private pokeApiService: PokeApiService,
@@ -70,6 +72,17 @@ export class HomePage implements OnInit {
       loading.dismiss();
       console.error("Ocorreu um problema ao carregar os pokemon: " + err.error)
     });
+
+  }
+
+  /**
+   * Pesquisa pelo pokemon
+   */
+  searchPokemon() {
+
+    this.pokeApiService.searchPokemon(this.searchInput.nativeElement.value).then((data:any) => {
+
+    })
 
   }
 

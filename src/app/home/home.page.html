@@ -6,6 +6,11 @@
 
     <div class="page-body">
 
+      <div class="search-container">
+        <input #searchInput type="text" placeholder="Pesquisar pelo nome ou índice do pokémon">
+        <button class="earch-btn" (click)="searchPokemon()">Pesquisar</button>
+      </div>
+
       <div class="pokemon-card-list">
 
         <div class="pokemon-card" *ngFor="let item of pokemonList.pokemonData" (click)="navigateurl(item)">
