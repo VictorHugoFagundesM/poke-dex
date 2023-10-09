@@ -11,6 +11,20 @@ ion-content {
       max-width: 1440px;
       margin-inline: auto;
 
+      .body-header {
+        text-align: center;
+        position: relative;
+
+        img {
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translate(0px, -50%);
+          width: 20px;
+          cursor: pointer;
+        }
+      }
+
       .pokemon-types {
         display: flex;
         justify-content: center;
@@ -40,6 +54,10 @@ ion-content {
 
   .d-flex {
     display: flex;
+  }
+
+  .justify-between {
+    justify-content: space-between;
   }
 
   .weight-5 {

@@ -4,9 +4,126 @@
 
   <div class="page page-info">
 
-    <div class="page-body">
+    <div class="page-body" *ngIf="pokemonData">
 
+      <h1 class="body-header">
+        <img (click)="location.back()" src="./../../assets/icon/arrow-back.svg">
+        {{ pokemonData.name[0].toUpperCase() + pokemonData.name.slice(1)}}
+        <img class="favorite-pokemon" src="./../../assets/icon/{{isFavorite ? 'filled-heart' : 'empty-heart'}}.svg" (click)="addFavoritePokemon()">
+      </h1>
 
+      <div class="pokemon-description">
+
+        <img src="{{pokemonData.photo}}">
+
+        <div class="pokedex-data">
+          <h3>Pokédex data</h3>
+
+          <table>
+
+            <tbody>
+
+              <tr>
+
+                <th>Indice(s) Nº</th>
+
+                <td>
+
+                  <div class="pokemon-index" *ngFor="let item of pokemonData.gameIndices | keyvalue">
+                    <span>{{item.key}} - {{item.value}}</span>
+                  </div>
+
+                </td>
+
+              </tr>
+
+              <tr>
+                <th>Type</th>
+
+                <td class="pokemon-types">
+
+                  <div class="type-card" *ngFor="let type of pokemonData.types" [style.background-color]="pokemonType?.[type]">
+                    {{type.toUpperCase()}}
+                  </div>
+
+                </td>
+
+              </tr>
+
+              <tr>
+                <th>Altura </th>
+                <td>{{pokemonData.height / 10}} m</td>
+              </tr>
+
+              <tr>
+                <th>Peso </th>
+                <td>{{pokemonData.weight / 10}} kg</td>
+              </tr>
+
+              <tr>
+                <th>Experiência Base </th>
+                <td>{{pokemonData.baseExperience}}</td>
+              </tr>
+
+              <tr>
+
+                <th>Habilidades</th>
+
+                <td>
+
+                  <div *ngFor="let ability of pokemonData.abilities">
+                    {{ability.slot}} - {{ability.ability.name.toUpperCase()}} {{ability.is_hidden ? "(habilidade oculta)" : ""}}
+                  </div>
+
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+      <div class="pokemon-stats">
+
+        <h3>Status básicos</h3>
+
+        <table>
+
+          <tbody>
+
+            <tr>
+
+              <th>Status</th>
+              <td>Valor</td>
+              <td></td>
+              <td>Mínimo</td>
+              <td>Máximo</td>
+
+            </tr>
+
+            <tr *ngFor="let stat of statsData;let i = index">
+
+              <th>{{stat.name}}</th>
+              <td>{{pokemonData.stats[i]}}</td>
+              <td class="chart-bar">
+                <div [style.background-color]="pokemonType?.[pokemonData.types[0]]"
+                [style.width.%]="((pokemonData.stats[i] - stat.min) / (stat.max - stat.min))*100"
+                ></div>
+              </td>
+              <td>{{stat.min}}</td>
+              <td>{{stat.max}}</td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
 
     </div>
 
