@@ -11,7 +11,7 @@
         <button class="earch-btn" (click)="searchPokemon()">Pesquisar</button>
       </div>
 
-      <div class="pokemon-card-list">
+      <div class="pokemon-card-list" *ngIf="filteredList.length == 0 && !this.searchValue">
 
         <div class="pokemon-card" *ngFor="let item of pokemonList.pokemonData" (click)="navigateurl(item)">
 
@@ -35,11 +35,43 @@
 
       </div>
 
+      <div class="pokemon-card-list" *ngIf="filteredList.length != 0">
+
+        <div class="pokemon-card" *ngFor="let item of filteredList" (click)="navigateurl(item)">
+
+          <div class="pokemon-description d-flex">
+            <span class="mr-auto weight-5">{{ item.name[0].toUpperCase() + item.name.slice(1)}}</span>
+            <small># {{item.order}}</small>
+            <!-- <p>{{item}}</p> -->
+          </div>
+
+          <img class="pokemon-photo" src="{{item.photo}}">
+
+          <div class="pokemon-types">
+
+            <div class="type-card" *ngFor="let type of item.types" [style.background-color]="pokemonType?.[type]">
+              {{type.toUpperCase()}}
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="page-body not-found" *ngIf="!this.isLoading && this.filteredList.length == 0 && this.searchValue">
+
+      <img src="./../../assets/confused-pikachu.jpg">
+      <h3>Pokémon não encontrado</h3>
+      <span>Não foi possível econtrar o pokémon, verifique as informações inseridas e tente novamente!</span>
+
     </div>
 
   </div>
 
-  <ion-infinite-scroll *ngIf="pokemonList.hasMorePages" (ionInfinite)="getNextPage()">
+  <ion-infinite-scroll *ngIf="!this.searchValue && pokemonList.hasMorePages" (ionInfinite)="getNextPage()">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 

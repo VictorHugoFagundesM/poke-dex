@@ -13,9 +13,11 @@ import { Router } from '@angular/router';
 export class HomePage implements OnInit {
 
   public pokemonList:any = [];
+  public filteredList:any = [];
   public isLoading:boolean = false;
   public pokemonType:any = PokemonType;
-
+  public searchValue:string = "";
+  private storageData:any = {};
 
 	@ViewChild("searchInput") searchInput: ElementRef;
 
@@ -50,22 +52,20 @@ export class HomePage implements OnInit {
     loading.present();
 
     this.pokeApiService.getPokemon(nextOffset).then((reponse:any) => {
-
       let newPokemonData = [];
 
-      // Concatena os novos pokemons à lista ja existente
       if (nextPage) {
         newPokemonData = this.pokemonList.pokemonData.concat(reponse.pokemonData);
       }
 
       this.pokemonList = reponse;
 
+      // Concatena os novos pokemons à lista ja existente
       if (nextPage) {
         this.pokemonList.pokemonData = newPokemonData;
       }
 
-      this.storage.set("pokemon", this.pokemonList.pokemonData);
-
+      this.saveDataInStorage(reponse.pokemonData);
       loading.dismiss();
 
     }).catch((err:any) => {
@@ -76,13 +76,48 @@ export class HomePage implements OnInit {
   }
 
   /**
-   * Pesquisa pelo pokemon
+   * Pesquisa pelo pokemon na API
    */
-  searchPokemon() {
+  async searchPokemon() {
 
-    this.pokeApiService.searchPokemon(this.searchInput.nativeElement.value).then((data:any) => {
+    this.searchValue = this.searchInput.nativeElement.value;
+    this.filteredList = [];
 
-    })
+    if (this.searchValue) {
+
+      const loading = await this.loadingCtrl.create({});
+      this.isLoading = true;
+      loading.present();
+
+      this.pokeApiService.searchPokemon(this.searchValue).then((data:any) => {
+
+        this.filteredList.push(data);
+
+        this.saveDataInStorage([data]);
+
+        loading.dismiss();
+        this.isLoading = false;
+
+      }).catch((err:any) => {
+        loading.dismiss();
+        this.isLoading = false;
+      });
+
+    }
+
+  }
+
+  /**
+   * Guarda no Storage as informações dos pokemon
+   */
+  saveDataInStorage(pokemonData:Array<any>) {
+
+    for (let index = 0; index < pokemonData.length; index++) {
+      let id = pokemonData[index].id;
+      this.storageData[id] = pokemonData[index];
+    }
+
+    this.storage.set("pokemon", this.storageData);
 
   }
 

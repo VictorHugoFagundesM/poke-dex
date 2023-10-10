@@ -70,7 +70,7 @@ export class InfoPage implements OnInit {
       // Obtém os do pokemon no storage
       this.storage.get("pokemon").then((data:any) => {
         // @ts-ignore
-        this.pokemonData = data[this.pokemonId -1];
+        this.pokemonData = data[this.pokemonId];
       });
 
       // Obtém a lista dos favoritos no storage

@@ -27,13 +27,18 @@
 
                 <th>Indice(s) Nº</th>
 
-                <td>
+                <td *ngIf="pokemonData?.gameIndices">
 
                   <div class="pokemon-index" *ngFor="let item of pokemonData.gameIndices | keyvalue">
                     <span>{{item.key}} - {{item.value}}</span>
                   </div>
 
                 </td>
+
+                <td *ngIf="!pokemonData?.gameIndices">
+                  <span>{{pokemonData.id}}</span>
+                </td>
+
 
               </tr>
 

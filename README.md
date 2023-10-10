@@ -27,4 +27,4 @@ O PokéDex foi desenvolvido com um design responsivo e intuitivo, seguindo as di
 
 ## Documentação
 
-- Para ver mais informações acesse a documentação: 
+- Para ver mais informações acesse a documentação: https://drive.google.com/file/d/1SAH_HvmSO70VAnBQjRV-iAh9bhPt2QlS/view?usp=sharing

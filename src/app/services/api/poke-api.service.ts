@@ -64,42 +64,7 @@ export class PokeApiService {
 
           // Organiza o array com resultados
           results.forEach((data:any) => {
-
-            let stats:Array<any> = data.stats.map((res:any) => res.base_stat);
-            let types:Array<any> = data.types.map((res:any) => res.type.name);
-            let gameIndices:any = {};
-            let order:any = "";
-
-            if (data.id.toString().length < pokemonList.count.toString().length) {
-
-              for (let index = 0; index < pokemonList.count.toString().length - data.id.toString().length; index++) {
-                order += "0";
-              }
-
-            }
-
-            order += data.id;
-
-            // Organiza os indicies do pokemon
-            data.game_indices.forEach((indexData:any) => {
-              if (!gameIndices?.[indexData.game_index]) gameIndices[indexData.game_index] = [];
-              gameIndices[indexData.game_index].push(indexData.version.name);
-            });
-
-            pokemonList.pokemonData.push({
-              id: data.id,
-              order: order,
-              name: data.name,
-              height: data.height,
-              weight: data.weight,
-              baseExperience: data.base_experience,
-              stats: stats,
-              types: types,
-              gameIndices: gameIndices,
-              abilities: data.abilities,
-              photo: data.sprites.other["official-artwork"].front_default,
-              icon: data.sprites.front_default
-            })
+            pokemonList.pokemonData.push(this.filterPokemonData(data))
           })
 
           resolve(pokemonList); // Resolve a Promise com a resposta da requisição
@@ -117,9 +82,9 @@ export class PokeApiService {
   }
 
   /**
-   * Pesquisa pelo pokemon
-   * @param searchText
-   */
+  * Pesquisa pelo pokemon
+  * @param searchText
+  */
   searchPokemon(searchText:string) {
 
     return new Promise((resolve, reject) => {
@@ -128,13 +93,56 @@ export class PokeApiService {
 
       // Obtém a lista de pokemon da página
       this.http.get(url).subscribe((response: any) => {
-        debugger
+        resolve(this.filterPokemonData(response));
 
       }, (error) => {
         reject(error); // Rejeita a Promise em caso de erro
       });
 
     });
+
+  }
+
+  /**
+   * Filtra os dados do pokémon
+   */
+  filterPokemonData(data:any) {
+
+    let stats:Array<any> = data.stats.map((res:any) => res.base_stat);
+    let types:Array<any> = data.types.map((res:any) => res.type.name);
+    let gameIndices:any = {};
+    let order:any = "";
+
+    if (data.id.toString().length < 4) {
+
+      for (let index = 0; index < 4 - data.id.toString().length; index++) {
+        order += "0";
+      }
+
+    }
+
+    order += data.id;
+
+    // Organiza os indicies do pokemon
+    data.game_indices.forEach((indexData:any) => {
+      if (!gameIndices?.[indexData.game_index]) gameIndices[indexData.game_index] = [];
+      gameIndices[indexData.game_index].push(indexData.version.name);
+    });
+
+    return {
+      id: data.id,
+      order: order,
+      name: data.name,
+      height: data.height,
+      weight: data.weight,
+      baseExperience: data.base_experience,
+      stats: stats,
+      types: types,
+      gameIndices: Object.keys(gameIndices).length > 0 ? gameIndices : null,
+      abilities: data.abilities,
+      photo: data.sprites.other["official-artwork"].front_default,
+      icon: data.sprites.front_default
+    };
 
   }
 
